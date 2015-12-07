@@ -1,15 +1,17 @@
 var crypto = require('crypto'),
+    Q = require('q'),
     Loki = require('lokijs'),
     db = new Loki('db.json', {
         autoload: true,
         autoloadCallback: loadHandler,
         autosave: true,
         autosaveInterval: 10000
-    }),
-    codes = null;
+    });
+
+var codesDeferred = Q.defer();
 
 function loadHandler() {
-    codes = db.getCollection('codes');
+    var codes = db.getCollection('codes');
     if (codes === null) {
         codes = db.addCollection('codes');
 
@@ -21,6 +23,7 @@ function loadHandler() {
     }
 
     console.log('code: ' + codes.findOne({ 'valid': true }).code);
-
-    exports.codes = codes;
+    codesDeferred.resolve(codes);
 }
+
+exports.codes = codesDeferred.promise;

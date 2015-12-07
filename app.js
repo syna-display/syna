@@ -19,7 +19,8 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
     flash = require ('connect-flash'),
-    i18n = require('i18n');
+    i18n = require('i18n'),
+    display = require(path.resolve('./src/display'));
 
 app.set('views', path.resolve('./views'));
 app.set('view engine', 'jade');
@@ -80,6 +81,8 @@ app.use(function(req, res, next) {
         title: i18n.__('Page not found')
     });
 });
+
+display.showInfos();
 
 server.listen(config.get('server.port'), config.get('server.host'), function() {
     var localIPs = network.getLocalIPs();
