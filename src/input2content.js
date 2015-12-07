@@ -46,8 +46,4 @@ module.exports = function (input, callback) {
             return previousValue;
         })
     }, Q.resolve(false));
-
-    /*chain.then(function (lastResult) {
-        console.log(lastResult);
-    });*/
 };
