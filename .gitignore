@@ -1,0 +1,7 @@
+.idea
+node_modules
+db.json
+nw
+nw.pak
+nwsnapshot
+libffmpegsumo.so

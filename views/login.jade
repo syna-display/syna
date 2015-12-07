@@ -1,0 +1,22 @@
+extend layout
+block content
+    .container.content
+        .row
+            .col-lg-12
+                h1.page-header #{__("Connection")}
+        .row
+            .col-lg-12
+                each error in errors
+                    .error
+                        div #{error}
+                form(role="form", action="/login", method="post")
+                    .form-group
+                        label(for="code")
+                            | #{__("Code")}
+                        input.form-control(id="code", name="code", type="text")
+                    .form-group
+                        label(for="username")
+                            | #{__("Username")}
+                        input.form-control(id="username", name="username", type="text")
+                    button.btn.btn-default(type="submit")
+                        | #{__("Sign in")}
