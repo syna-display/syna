@@ -11,7 +11,7 @@ var buildPath = function(q) {
 var apply = function(id, handle) {
     handle({
         view: 'youtube',
-        url: 'http://www.youtube.com/embed/' + id + '?autoplay=1'
+        url: 'http://www.youtube.com/embed/' + id + '?autoplay=1&controls=0&iv_load_policy=3'
     });
 }
 
@@ -27,7 +27,7 @@ var applyable = function(id) {
  */
 module.exports = function(request, handle, ignore) {
     var id = '';
-    
+
     // Handle urls --
     if(request.url.query.hasOwnProperty('v')) {
         id = request.url.query.v.trim();
