@@ -1,0 +1,17 @@
+/* Handle simple urls
+ * @arg {string} user input to convert into a webpage
+ * @arg {function} callback to return the resulting webpage
+ * @arg {function} callback to notify no handling
+ * @see http://www.w3schools.com/tags/tag_iframe.asp
+ */
+exports = function(request, handle, ignore) {
+    if(request.url.host != null) {
+        handle({
+            view: 'simple-url',
+            url: request.url.href
+        });
+        return;
+    }
+
+    ignore();
+};
