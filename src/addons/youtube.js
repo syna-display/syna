@@ -25,9 +25,9 @@ var applyable = function(id) {
  * @arg {function} callback to notify no handling
  * @see https://developers.google.com/youtube/player_parameters
  */
-exports = function(request, handle, ignore) {
+module.exports = function(request, handle, ignore) {
     var id = '';
-
+    
     // Handle urls --
     if(request.url.query.hasOwnProperty('v')) {
         id = request.url.query.v.trim();

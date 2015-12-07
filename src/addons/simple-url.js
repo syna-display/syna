@@ -4,7 +4,7 @@
  * @arg {function} callback to notify no handling
  * @see http://www.w3schools.com/tags/tag_iframe.asp
  */
-exports = function(request, handle, ignore) {
+module.exports = function(request, handle, ignore) {
     if(request.url.host != null) {
         handle({
             view: 'simple-url',

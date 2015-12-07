@@ -69,9 +69,11 @@ passport.deserializeUser(function(user, done) {
 
 var index = require(path.resolve('./routes/index'));
 var login = require(path.resolve('./routes/login'));
+var api   = require(path.resolve('./routes/api'));
 
 app.all('/', index.show);
 app.all('/login', login.show);
+app.all('/api/sendText', api.sendText);
 
 app.use(function(req, res, next) {
     return res.render('404', {

@@ -21,14 +21,12 @@ addonToLoadList.forEach(function(addonName, i) {
 /* @param {string} user input
  * @param {string} callback to return object to display
  */
-exports.convert = function (input, callback) {
-
+module.exports = function (input, callback) {
     // Minimal processing --
     var request = {};
     request.input = input.trim();
     request.bang = helper.bang.handle(request.input);
     request.url = helper.url.handle(request.bang.input);
-    request.response = null;
 
     // Use inputs --
     var chain = addonList.reduce(function (previous, addon) {

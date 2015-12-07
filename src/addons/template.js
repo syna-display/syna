@@ -3,7 +3,7 @@
  * @arg {function} callback to return the resulting webpage
  * @arg {function} callback to notify no handling
  */
-exports = function(request, handle, ignore) {
+module.exports = function(request, handle, ignore) {
     if(false) {
         handle({
             view: 'no-result'

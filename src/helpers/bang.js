@@ -1,4 +1,4 @@
-exports.handle = function(input) {
+module.exports.handle = function(input) {
     var info = /^!([a-z]*) (.+)$/.exec(input);
     var result = {
         input: input,
