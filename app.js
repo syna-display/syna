@@ -51,11 +51,13 @@ passport.use(new LocalStrategy({
     },
     function(username, code, done) {
         process.nextTick(function () {
-            if (db.codes.findOne({ 'code': code, 'valid': true }) != null) {
-                return done(null, username);
-            } else {
-                return done(null, false, { message: i18n.__('Error: Invalid code') });
-            }
+            db.codes.then(function(codes) {
+                if (codes.findOne({ 'code': code, 'valid': true }) != null) {
+                    return done(null, username);
+                } else {
+                    return done(null, false, { message: i18n.__('Error: Invalid code') });
+                }
+            });
         });
     }
 ));
