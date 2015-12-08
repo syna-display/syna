@@ -5,7 +5,8 @@ var client = request.createClient('https://www.googleapis.com/');
 var buildPath = function(q) {
     return '/youtube/v3/search?part=id&q='
      + urlencode(q)
-     + '&key=AIzaSyAuFUf5HgkNMAZi52D2hsTBnyb6FYBh5Co';
+     + '&key=AIzaSyAuFUf5HgkNMAZi52D2hsTBnyb6FYBh5Co'
+     + '&type=video&videoEmbeddable=true&videoSyndicated=true';
 };
 
 var apply = function(id, handle) {
