@@ -1,13 +1,12 @@
+var path = require('path'),
+    network = require(path.resolve('./src/network')),
+    db = require(path.resolve('./src/db'));
+
 /* Template : duplicate this file to create a new add-on
  * @arg {string} user input to convert into a webpage
  * @arg {function} callback to return the resulting webpage
  * @arg {function} callback to notify no handling
  */
-
-var path = require('path'),
-    network = require(path.resolve('./src/network')),
-    db = require(path.resolve('./src/db'));
-
 module.exports = function(request, handle, ignore) {
     if(request.bang.tag == 'info') {
         var localIPs = network.getLocalIPs(),
