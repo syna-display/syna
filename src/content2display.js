@@ -1,6 +1,5 @@
 var jade = require('jade'),
-    Q    = require('q'),
-    $    = require('jQuery');
+    Q    = require('q');
 
 /* @param {string} request from input2content module
  * @return {string} html result to display
@@ -8,6 +7,11 @@ var jade = require('jade'),
 module.exports = function (request, target) {
     var render = Q.nfbind(jade.renderFile);
     render('./views/tiles/' + request.view + '.jade', request).done(function (html) {
-        $('#display').html(html);
+        if(window.syna) {
+            window.syna.display(html);
+        }
+        else {
+            console.error("[content2display] Missing syna object (view).");
+        }
     });
 };
