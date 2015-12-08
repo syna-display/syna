@@ -105,3 +105,8 @@ process.on('message', function(msg) {
 process.on('exit', function(code) {
     // Cleanup code here
 });
+
+// Debug mode --
+if(config.get('debug')) {
+    require('nw.gui').Window.get().showDevTools();
+}
