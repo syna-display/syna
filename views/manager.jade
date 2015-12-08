@@ -4,34 +4,36 @@ block imports
     script(src="//cdnjs.cloudflare.com/ajax/libs/Sortable/1.4.2/Sortable.min.js")
     link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
 block content
-    h1= test
-    .container.content
+    .container.content.heightinherit
         .row
             .col-lg-12
                 h1.page-header #{__("Manager")}
-        .row
-            .col-md-6.left-panel
-               h2 Ordonnanceur
-               .left-panel-content
-                   .block-commands
-                       ul#commands
-                           each val, index in commandlist
-                               li(id= val.id)
-                                   p= val.banglong + ' : '
-                                   p= val.command
-                                   button.btn.btn-default(type='button')
-                                       i.material-icons &#xe307
-                       script.
-                           var el = document.getElementById('commands');
-                           Sortable.create(el, {
-                               onUpdate: function (evt) {
-                                   console.log(evt);
-                               }
-                           });// https://github.com/RubaXa/Sortable
-                   hr
-                   .block-command
-                       form
-                           .form-group
-                               input#command.form-control(type='text', placeholder='Demandez à Syna')
-            .col-md-6.right-panel
-               h2 Bitch
+        .row.heightinherit
+            .col-md-12.heightinherit
+               .block-commands
+                   #commands.list-group
+                       each val in commandlist
+                           .list-group-item(id= val.id)
+                               .row
+                                   div.bang.col-md-1
+                                       if val.bangico != ''
+                                           i.material-icons= val.bangico
+                                       else
+                                           img(src=val.bangicourl alt=val.banglong)
+                                   div.command.col-md-10
+                                       =val.command
+                                   div.button.col-md-1
+                                       button.btn.btn-default(type='button')
+                                           i.material-icons cast
+                   script.
+                       var el = document.getElementById('commands');
+                       Sortable.create(el, {
+                           onUpdate: function (evt) {
+                               console.log(evt);
+                           }
+                       });// https://github.com/RubaXa/Sortable
+               hr
+               .block-command
+                   form
+                       .form-group
+                           input#command.form-control(type='text', placeholder='Demandez à Syna')
