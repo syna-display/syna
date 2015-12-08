@@ -1,0 +1,37 @@
+extend layout
+block imports
+    link(rel="stylesheet", href="/css/manager.css")
+    script(src="//cdnjs.cloudflare.com/ajax/libs/Sortable/1.4.2/Sortable.min.js")
+    link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
+block content
+    h1= test
+    .container.content
+        .row
+            .col-lg-12
+                h1.page-header #{__("Manager")}
+        .row
+            .col-md-6.left-panel
+               h2 Ordonnanceur
+               .left-panel-content
+                   .block-commands
+                       ul#commands
+                           each val, index in commandlist
+                               li(id= val.id)
+                                   p= val.banglong + ' : '
+                                   p= val.command
+                                   button.btn.btn-default(type='button')
+                                       i.material-icons &#xe307
+                       script.
+                           var el = document.getElementById('commands');
+                           Sortable.create(el, {
+                               onUpdate: function (evt) {
+                                   console.log(evt);
+                               }
+                           });// https://github.com/RubaXa/Sortable
+                   hr
+                   .block-command
+                       form
+                           .form-group
+                               input#command.form-control(type='text', placeholder='Demandez à Syna')
+            .col-md-6.right-panel
+               h2 Bitch
