@@ -82,7 +82,7 @@ app.use(function(req, res, next) {
     });
 });
 
-display.showInfos();
+display.startTile();
 
 server.listen(config.get('server.port'), config.get('server.host'), function() {
     var localIPs = network.getLocalIPs();
