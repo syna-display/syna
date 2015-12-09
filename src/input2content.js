@@ -36,7 +36,10 @@ module.exports = function (input, callback) {
             if(!previousValue) {
                 var deferred = Q.defer();
                 addon(request, function(value) {
-                    callback(value);
+                    callback({
+                        request: request,
+                        data: value
+                    });
                     deferred.resolve(true);
                 }, function() {
                     deferred.resolve(false);
