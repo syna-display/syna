@@ -1,6 +1,10 @@
 exports.show = function(req, res ,next) {
     if (req.method == "GET") {
-        //todo: check authentication
+
+        if (!req.isAuthenticated()) {
+            return res.redirect('/login');
+        }
+
         return res.render("manager", {
             errors: req.flash('error'),
             user: req.user,
