@@ -11,6 +11,7 @@ var addonList = [];
 var addonToLoadList = [
     'youtube',
     'simple-url',
+    'syna-info',
     'no-result'
 ];
 

@@ -120,7 +120,8 @@ app.use(function(req, res, next) {
 io.on("connection", function(socket) {
     sync.init(socket);
 });
-display.showInfos();
+
+display.startTile();
 
 server.listen(config.get('server.port'), config.get('server.host'), function() {
     var localIPs = network.getLocalIPs();
@@ -143,3 +144,8 @@ process.on('message', function(msg) {
 process.on('exit', function(code) {
     sync.close(io);
 });
+
+// Debug mode --
+if(config.get('debug')) {
+    require('nw.gui').Window.get().showDevTools();
+}
