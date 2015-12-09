@@ -10,5 +10,7 @@
   "Send": "Envoyer",
   "Code": "Code",
   "Username": "Nom d'utilisateur",
-  "Error: Invalid code": "Erreur: code invalide"
+  "Error: Invalid code": "Erreur: code invalide",
+  "Connect at one of the address below": "Vous pouvez vous connecter à l'une des adresses ci-dessous :",
+  "Connexion code": "Code de connection :"
 }

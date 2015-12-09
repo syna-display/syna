@@ -1,11 +1,13 @@
 {
-	"Page not found": "Page not found",
-	"Invalid code": "Invalid code",
-	"Error: Invalid code": "Error: Invalid code",
-	"404 Error": "404 Error",
-	"Sorry but the requested page is not found": "Sorry but the requested page is not found",
-	"Connection": "Connection",
-	"Code": "Code",
-	"Username": "Username",
-	"Sign in": "Sign in"
+  "Page not found": "Page not found",
+  "Invalid code": "Invalid code",
+  "Error: Invalid code": "Error: Invalid code",
+  "404 Error": "404 Error",
+  "Sorry but the requested page is not found": "Sorry but the requested page is not found",
+  "Connection": "Connection",
+  "Code": "Code",
+  "Username": "Username",
+  "Sign in": "Sign in",
+  "Connect at one of the address below": "Connect at one of the addresses below :",
+  "Connexion code": "Connexion code :"
 }

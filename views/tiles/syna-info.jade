@@ -1,5 +1,8 @@
 div
+    h1 Syna
+    p
+        | #{__("Connect at one of the address below")}
     ul#networks
         each ip in ips
             li= ip
-    #code= code
+    p#code #{__("Connexion code")} #{code}
