@@ -16,10 +16,15 @@ var express = require('express'),
     db = require(path.resolve('./src/db')),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
+    lokiStore = require('loki-session'),
+    store = lokiStore(path.resolve('./db.json')),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
     flash = require ('connect-flash'),
-    i18n = require('i18n');
+    i18n = require('i18n'),
+    io = require("socket.io").listen(server),
+    passportSocketIo = require("passport.socketio"),
+    sync = require(path.resolve('./src/sync'));
 
 app.set('views', path.resolve('./views'));
 app.set('view engine', 'jade');
@@ -33,6 +38,7 @@ app.use(session({
     key:                'syna.sid',
     secret:             config.get('secret_token'),
     resave:             true,
+    store:              store,
     saveUninitialized:  true
 }));
 app.use(passport.initialize());
@@ -50,11 +56,13 @@ passport.use(new LocalStrategy({
     },
     function(username, code, done) {
         process.nextTick(function () {
-            if (db.codes.findOne({ 'code': code, 'valid': true }) != null) {
-                return done(null, username);
-            } else {
-                return done(null, false, { message: i18n.__('Error: Invalid code') });
-            }
+            db.codes.then(function(codes) {
+                if (codes.findOne({ 'code': code, 'valid': true }) != null) {
+                    return done(null, username);
+                } else {
+                    return done(null, false, { message: i18n.__('Error: Invalid code') });
+                }
+            });
         });
     }
 ));
@@ -65,6 +73,33 @@ passport.serializeUser(function(user, done) {
 
 passport.deserializeUser(function(user, done) {
     done(null, user);
+});
+
+function onAuthorizeSuccess(data, accept){
+    i18n.init(data);
+    data.locale = i18n.getLocale(data);
+    console.info(new Date().toLocaleString() + ' Successful connection to socket.io (lang: ' + data.user.locale + ')');
+    accept();
+}
+
+function onAuthorizeFail(data, message, error, accept){
+    console.info(new Date().toLocaleString() + ' Failed connection to socket.io: ' + message);
+    if(error) {
+        accept(new Error(message));
+    }
+}
+
+var cookieAuth = passportSocketIo.authorize({
+    cookieParser: cookieParser,
+    store:        store,
+    key:          "syna.sid",
+    secret:       config.get("secret_token"),
+    success:      onAuthorizeSuccess,
+    fail:         onAuthorizeFail
+});
+
+io.use(function(socket, next) {
+    cookieAuth(socket, next);
 });
 
 var index = require(path.resolve('./routes/index'));
@@ -81,6 +116,10 @@ app.use(function(req, res, next) {
     });
 });
 
+io.on("connection", function(socket) {
+    sync.init(socket);
+});
+
 server.listen(config.get('server.port'), config.get('server.host'), function() {
     var localIPs = network.getLocalIPs();
     for (var currentInterface in localIPs) {
@@ -93,14 +132,14 @@ server.listen(config.get('server.port'), config.get('server.host'), function() {
 process.on('message', function(msg) {
     // PM2 Graceful reload
     if (msg === 'shutdown') {
-        // Cleanup code here
+        sync.close(io);
 
         process.exit(0);
     }
 });
 
 process.on('exit', function(code) {
-    // Cleanup code here
+    sync.close(io);
 });
 
 // Debug mode --
