@@ -76,7 +76,7 @@ router.get('/info', function(req, res) {
 
     for (var currentInterface in localIPs) {
         if (localIPs.hasOwnProperty(currentInterface) && localIPs[currentInterface].IPv4 != "127.0.0.1") {
-            result.ips.push(localIPs[currentInterface].IPv4);
+            result.ips.push('http://' + localIPs[currentInterface].IPv4 + '/');
         }
     }
 
