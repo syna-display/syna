@@ -74,7 +74,7 @@ var api   = require(path.resolve('./routes/api'));
 
 app.all('/', index.show);
 app.all('/login', login.show);
-app.all('/api/sendText', api.sendText);
+app.all('/api/v1/sendText', api.sendText);
 
 app.use(function(req, res, next) {
     return res.render('404', {
