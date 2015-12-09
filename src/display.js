@@ -1,8 +1,8 @@
 var path = require('path'),
     network = require(path.resolve('./src/network')),
     db = require(path.resolve('./src/db')),
-    input2content = require(path.resolve('./src/input2content')),
-    content2display = require(path.resolve('./src/content2display'));
+    input2content = require(path.resolve('./src/input2content'));
+    //content2display = require(path.resolve('./src/content2display'));
     //$ = require('jQuery');
 
 exports.showInfos = function() {
@@ -19,7 +19,7 @@ exports.showInfos = function() {
 };
 
 exports.startTile = function () {
-    input2content('!info', function(result) {
+    /*input2content('!info', function(result) {
         content2display(result);
-    });
+    });*/
 }
