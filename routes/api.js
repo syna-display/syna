@@ -1,8 +1,12 @@
-var flash           = require('connect-flash'),
-    input2content   = require('../src/input2content');
+var express         = require('express'),
+    router          = express.Router(),
+    input2content   = require('../src/input2content'),
+    path            = require('path'),
+    network         = require(path.resolve('./src/network')),
+    db              = require(path.resolve('./src/db'));
 
-exports.sendText = function (req, res, next) {
-    console.log(req, res);
+// Main function --
+router.get('/sendText', function(req, res) {
     if (req.isAuthenticated() || true) {
         var input = req.query.input;
         if(input) {
@@ -48,4 +52,23 @@ exports.sendText = function (req, res, next) {
     else {
         res.status(401).json({ error: 'Unauthorized request.' });
     }
-};
+});
+
+// Secondary functions --
+router.get('/info', function(req, res) {
+    var localIPs = network.getLocalIPs()
+        result = { ips: [], code: "" };
+
+    for (var currentInterface in localIPs) {
+        if (localIPs.hasOwnProperty(currentInterface) && localIPs[currentInterface].IPv4 != "127.0.0.1") {
+            result.ips.push(localIPs[currentInterface].IPv4);
+        }
+    }
+
+    db.codes.then(function(codes){
+        result.code = codes.findOne({ 'valid': true }).code;
+        res.status(200).json(result);
+    });
+});
+
+module.exports = router;
