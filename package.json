@@ -18,6 +18,8 @@
   },
   "dependencies": {
     "body-parser": "^1.14.1",
+    "bootstrap": "^4.0.0-alpha.2",
+    "bootswatch": "^3.3.6",
     "config": "^1.17.1",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.0",
@@ -25,8 +27,8 @@
     "express-session": "^1.12.1",
     "i18n": "^0.5.0",
     "jade": "^1.11.0",
-    "loki-session": "^0.2.0",
     "jquery": "^1.11.3",
+    "loki-session": "^0.2.0",
     "lokijs": "^1.3.10",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
