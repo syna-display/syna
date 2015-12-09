@@ -9,9 +9,11 @@ exports.sendText = function (req, res, next) {
         if(input) {
             input2content(input, function(result) {
                 console.log(result);
-                content2display(result);
+                res.status(201).send({
+                    message: 'Input sent.',
+                    result : result
+                });
             });
-            res.status(201).send({ message: 'Input sent.' });
         }
         else {
             res.status(400).send({ error: "Missing 'input' parameter." });
