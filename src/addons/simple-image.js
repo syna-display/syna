@@ -1,4 +1,4 @@
-var regexExt = /\.(jpeg|jpg|gif|png)$/;
+var regexExt = /\.(jpeg|jpg|gif|png|bmp|svg)$/;
 
 /* Template : duplicate this file to create a new add-on
  * @arg {string} user input to convert into a webpage
