@@ -43,7 +43,7 @@ var useAsResponse = function(res, html, result) {
 
 
 // Main route --
-router.get('/sendText', function(req, res) {
+router.post('/sendText', function(req, res) {
 
     // Check rights --
     if (!req.isAuthenticated() && false) {
@@ -52,7 +52,7 @@ router.get('/sendText', function(req, res) {
     }
 
     // Check params --
-    var input = req.query.input;
+    var input = req.body.input;
     if(!input) {
         res.status(400).json({ error: "Missing 'input' parameter." });
         return;
@@ -60,7 +60,7 @@ router.get('/sendText', function(req, res) {
 
     // Call the AI to get content --
     callAI(req, res, input, function(req, res, result, html) {
-        if(req.query.display && req.query.display)  {
+        if(req.body.display && req.body.display)  {
             useAsDisplay(res, html);
         }
         else {

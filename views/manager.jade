@@ -3,6 +3,7 @@ block imports
     link(rel="stylesheet", href="/css/manager.css")
     script(src="//cdnjs.cloudflare.com/ajax/libs/Sortable/1.4.2/Sortable.min.js")
     link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
+    script(src="/js/jquery.min.js")
 block content
     .container.content.heightinherit
         .row
@@ -34,6 +35,24 @@ block content
                        });// https://github.com/RubaXa/Sortable
                hr
                .block-command
-                   form
+                   form#command(action="/api/v1/sendText" method="POST")
                        .form-group
-                           input#command.form-control(type='text', placeholder='Demandez à Syna')
+                           input.form-control(name="input", type='text', placeholder='Demandez à Syna')
+                           script.
+                               $("#command").submit(function(e) {
+                                   var postData = $(this).serialize();
+                                   var formURL = $(this).attr("action");
+                                   var method = $(this).attr("method");
+                                   $.ajax({
+                                       url: formURL,
+                                       type: method,
+                                       data: postData,
+                                       success: function (data, textStatus, jqXHR) {
+                                           console.log(data);
+                                       },
+                                       error: function (jqXHR, textStatus, errorThrown) {
+                                           console.log(jqXHR);
+                                       }
+                                   });
+                                   e.preventDefault();
+                               });
