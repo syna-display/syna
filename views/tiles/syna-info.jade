@@ -1,17 +1,16 @@
-h1 
-    img(height='110px', src='assets/img/logo.png' style={margin: '10px 30px'})
-.container
-    center
-        img(width='30%', src='assets/img/mascotte.png')
-    .panel.panel-primary(style='max-width: 500px; margin: 20px auto;')
-        .panel-heading
-            h3.panel-title #{__("Connection")}
-        .panel-body
-            p
-                | #{__("Connect at one of the address below")}
-            ul.list-group#networks
-                each ip in ips
-                    li.list-group-item(style='font-size:large;')= ip
-            p#code 
-                strong #{__("Connection code")} 
-                strong(type='button', style='margin-left: 20px; font-size: 40px;') #{code}
+.tile-syna-info
+    img.logo(src='assets/img/logo.png')
+    .centered
+        center
+            img.mascotte(src='assets/img/mascotte.png')
+        .panel.panel-primary
+            .panel-heading
+                h3.panel-title #{__("Connection")}
+            .panel-body
+                p
+                    | #{__("Connect at one of the address below")}
+                ul.list-group
+                    each ip in ips
+                        li.list-group-item= ip
+                p.code-p #{__("Connection code")} 
+                    span.code(type='button') #{code}

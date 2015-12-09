@@ -1,0 +1,28 @@
+/* Syna-info */
+.tile-syna-info .centered {
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+.tile-syna-info .logo {
+    height: 110px;
+    margin: 30px 30px;
+}
+
+.tile-syna-info .mascotte {
+    width: 60%;
+    margin: 30px 30px;
+}
+
+.tile-syna-info li {
+    font-size: large;
+}
+
+.tile-syna-info .code-p {
+    font-weight: bolder;
+}
+
+.tile-syna-info .code {
+    margin-left: 20px;
+    font-size: 40px;
+}
