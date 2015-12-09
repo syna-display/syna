@@ -9,9 +9,17 @@ exports.sendText = function (req, res, next) {
         if(input) {
             input2content(input, function(result) {
                 console.log(result);
-                res.status(201).send({
-                    message: 'Input sent.',
-                    result : result
+
+                res.render('tiles/' + result.data.view, {
+                    test: 'test'
+                }, function(err, html) {
+                    res.json({
+                        message: "Input Sent.",
+                        request: result.request,
+                        data: result.data,
+                        rendered: html
+                    })
+                    return false;
                 });
             });
         }
