@@ -7,6 +7,7 @@ $(document).ready(function() {
     };
 
     // -- Instructions --
-    console.log(window);
+
+    // Start tile --
     $.get('http://localhost:' + window.config.server.port + '/api/v1/sendText?input=!info&display=true');
 })

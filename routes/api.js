@@ -10,9 +10,9 @@ router.get('/sendText', function(req, res) {
     if (req.isAuthenticated() || true) {
         var input = req.query.input;
         if(input) {
+            
             // Call the AI to get content --
             input2content(input, function(result) {
-                console.log(result);
 
                 // Use the ExpressJS render template --
                 res.render('tiles/' + result.data.view, result.data, function(err, html) {
