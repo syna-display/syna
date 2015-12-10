@@ -49,7 +49,13 @@ module.exports = function(request, handle, ignore) {
           if(err) {
               ignore();
           } else {
-              apply(body.items[0].id.videoId, handle);
+              if(Array.isArray(body.items) && body.items.length >= 1) {
+                  apply(body.items[0].id.videoId, handle);
+              }
+              else {
+                  console.error("No youtube results");
+                  ignore();
+              }
           }
         });
         return;
