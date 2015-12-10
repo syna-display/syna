@@ -12,6 +12,7 @@ var addonList = [];
 var addonToLoadList = [
     'youtube',
     'simple-image',
+    'simple-oembed',
     'simple-url',
     'syna-info',
     'no-result'
@@ -30,7 +31,6 @@ module.exports = function (input, callback) {
     request.input = input.trim();
     request.bang = helper.bang.handle(request.input);
     request.url = helper.url.handle(request.bang.input);
-    console.log(request);
 
     // Use inputs --
     var chain = addonList.reduce(function (previous, addon) {
