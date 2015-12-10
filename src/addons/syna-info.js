@@ -1,6 +1,7 @@
 var path = require('path'),
     network = require(path.resolve('./src/network')),
-    db = require(path.resolve('./src/db'));
+    db = require(path.resolve('./src/db')),
+    config = require(path.resolve('./config/default.json'));
 
 /* Template : duplicate this file to create a new add-on
  * @arg {string} user input to convert into a webpage
@@ -10,13 +11,14 @@ var path = require('path'),
 module.exports = function(request, handle, ignore) {
     if(request.bang.tag == 'info') {
         var localIPs = network.getLocalIPs(),
+            port = config.server.port == '80' ? '' : ':' + config.server.port,
             result = {
                 view: 'syna-info',
                 ips: []
             };
         for (var currentInterface in localIPs) {
             if (localIPs.hasOwnProperty(currentInterface) && localIPs[currentInterface].IPv4 != "127.0.0.1") {
-                result.ips.push('http://' + localIPs[currentInterface].IPv4 + '/');
+                result.ips.push('http://' + localIPs[currentInterface].IPv4 + port + '/');
             }
         }
         db.get(function(database) {
