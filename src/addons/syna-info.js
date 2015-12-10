@@ -19,8 +19,8 @@ module.exports = function(request, handle, ignore) {
                 result.ips.push('http://' + localIPs[currentInterface].IPv4 + '/');
             }
         }
-        db.codes.then(function(codes){
-            result.code = codes.findOne({ 'valid': true }).code;
+        db.get(function(database) {
+            result.code = database.codes.findOne({ 'valid': true }).code;
             handle(result);
         });
 

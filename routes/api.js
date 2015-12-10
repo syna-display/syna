@@ -69,9 +69,9 @@ router.get('/sendText', function(req, res) {
     });
 });
 
-// Secondary reoutes --
+// Secondary route --
 router.get('/info', function(req, res) {
-    var localIPs = network.getLocalIPs()
+    var localIPs = network.getLocalIPs(),
         result = { ips: [], code: "" };
 
     for (var currentInterface in localIPs) {
@@ -80,8 +80,8 @@ router.get('/info', function(req, res) {
         }
     }
 
-    db.codes.then(function(codes){
-        result.code = codes.findOne({ 'valid': true }).code;
+    db.get(function(database) {
+        result.code = database.codes.findOne({ 'valid': true }).code;
         res.status(200).json(result);
     });
 });

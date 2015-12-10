@@ -8,10 +8,12 @@ var crypto = require('crypto'),
         autosaveInterval: 10000
     });
 
-var codesDeferred = Q.defer();
+var deferred = Q.defer();
+
+var codes, items;
 
 function loadHandler() {
-    var codes = db.getCollection('codes');
+    codes = db.getCollection('codes');
     if (codes === null) {
         codes = db.addCollection('codes');
 
@@ -22,8 +24,21 @@ function loadHandler() {
         db.saveDatabase();
     }
 
+    items = db.getCollection('items');
+    if(items === null) {
+        items = db.addCollection('items');
+    }
+
     console.log('code: ' + codes.findOne({ 'valid': true }).code);
-    codesDeferred.resolve(codes);
+    deferred.resolve({codes: codes, items: items});
 }
 
-exports.codes = codesDeferred.promise;
+exports.get = function(fn) {
+    var promise = deferred.promise;
+    promise.then(fn);
+    return promise;
+};
+
+exports.close = function() {
+    db.close();
+};
