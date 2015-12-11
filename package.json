@@ -1,7 +1,7 @@
 {
   "name": "Syna",
   "version": "0.1.0",
-  "main": "index.html",
+  "main": "main.js",
   "single-instance": true,
   "window": {
     "width": 800,
@@ -14,7 +14,7 @@
     "toolbar": false
   },
   "scripts": {
-    "start": "nw ."
+    "start": "electron ."
   },
   "dependencies": {
     "body-parser": "^1.14.1",
