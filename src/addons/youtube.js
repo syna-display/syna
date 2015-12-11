@@ -12,9 +12,9 @@ var buildPath = function(q) {
 var apply = function(id, handle) {
     handle({
         view: 'youtube',
-        url: 'http://www.youtube.com/embed/' + id + '?autoplay=1&controls=0&iv_load_policy=3'
+        url: 'https://www.youtube.com/watch?v=' + id
     });
-}
+};
 
 var applyable = function(id) {
     return /^[a-zA-Z0-9]{11}$/.test(id);
