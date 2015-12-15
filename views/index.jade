@@ -25,34 +25,9 @@ block content
                                     div.button.col-md-1
                                         button.btn.btn-default(type='button')
                                             i.material-icons cast
-                    script.
-                        var el = document.getElementById('commands');
-                        Sortable.create(el, {
-                            onUpdate: function (evt) {
-                                console.log(evt);
-                            }
-                        });// https://github.com/RubaXa/Sortable
                 hr
                 .block-command
                     form#command(action="/api/v1/sendText" method="POST")
                         .form-group
                             input.form-control(name="input", type='text', placeholder='Demandez à Syna')
-                            script.
-                                $("#command").submit(function(e) {
-                                    var postData = $(this).serialize();
-                                    var formURL = $(this).attr("action");
-                                    var method = $(this).attr("method");
-                                    $.ajax({
-                                        url: formURL,
-                                        type: method,
-                                        data: postData,
-                                        success: function (data, textStatus, jqXHR) {
-                                            console.log(data);
-                                        },
-                                        error: function (jqXHR, textStatus, errorThrown) {
-                                            console.log(jqXHR);
-                                        }
-                                    });
-                                    e.preventDefault();
-                                });
-
+                script(src="/js/manager.js")
