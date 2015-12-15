@@ -1,3 +1,6 @@
+var path    = require('path'),
+    ico     = require(path.resolve('./src/helpers/ico'));
+
 var regexExt = /\.(jpeg|jpg|gif|png|bmp|svg)$/;
 
 /* Template : duplicate this file to create a new add-on
@@ -9,7 +12,8 @@ module.exports = function(request, handle, ignore) {
     if(regexExt.test(request.url.pathname)) {
         handle({
             view: 'simple-image',
-            url: request.url.href
+            url: request.url.href,
+            ico: ico.none()
         });
         return;
     }

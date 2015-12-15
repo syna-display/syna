@@ -1,5 +1,7 @@
-var request = require('request-json'),
-    urlencode = require('urlencode');
+var request     = require('request-json'),
+    urlencode   = require('urlencode'),
+    path        = require('path'),
+    ico         = require(path.resolve('./src/helpers/ico'));
 
 var list = {
     "flickr" : {
@@ -58,19 +60,21 @@ exports.handle = function(provider, input, handle, ignore) {
             ignore();
             return;
         }
-        
+
         switch(body.type) {
             case "photo":
                 handle({
                     view: 'simple-image',
-                    url: body.url
+                    url: body.url,
+                    ico: ico.domain(provider.hostname)
                 });
                 return;
             case "video":
             case "rich":
                 handle({
                     view: 'raw',
-                    code: body.html
+                    code: body.html,
+                    ico: ico.domain(provider.hostname)
                 });
                 return;
             case "link":

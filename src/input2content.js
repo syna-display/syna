@@ -4,7 +4,8 @@ var Q = require('q'),
 // -- Helpers --
 var helper = {
     url: require('./helpers/url.js'),
-    bang: require('./helpers/bang.js')
+    bang: require('./helpers/bang.js'),
+    ico: require('./helpers/ico.js')
 }
 
 // -- Load addons --
@@ -39,6 +40,13 @@ module.exports = function (input, callback) {
             if(!previousValue) {
                 var deferred = Q.defer();
                 addon(request, function(value) {
+
+                    // If missing add the icon --
+                    if(!value.ico) {
+                        value.ico = helper.ico.none();
+                    }
+
+                    // Return the whole result --
                     callback({
                         request: request,
                         data: value

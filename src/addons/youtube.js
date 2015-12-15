@@ -1,5 +1,8 @@
-var request = require('request-json'),
-    urlencode = require('urlencode');
+var path        = require('path'),
+    ico         = require(path.resolve('./src/helpers/ico')),
+    request     = require('request-json'),
+    urlencode   = require('urlencode');
+    
 var client = request.createClient('https://www.googleapis.com/');
 
 var buildPath = function(q) {
@@ -12,7 +15,8 @@ var buildPath = function(q) {
 var apply = function(id, handle) {
     handle({
         view: 'youtube',
-        url: 'http://www.youtube.com/embed/' + id + '?autoplay=1&controls=0&iv_load_policy=3'
+        url: 'http://www.youtube.com/embed/' + id + '?autoplay=1&controls=0&iv_load_policy=3',
+        ico: ico.domain('http://www.youtube.com')
     });
 }
 
