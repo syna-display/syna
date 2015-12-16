@@ -1,23 +1,21 @@
-var Q = require('q'),
-    urlencode = require('urlencode');
+var Q           = require('q'),
+    config      = require('config'),
+    urlencode   = require('urlencode');
 
 // -- Helpers --
 var helper = {
-    url: require('./helpers/url.js'),
+    url:  require('./helpers/url.js'),
     bang: require('./helpers/bang.js'),
-    ico: require('./helpers/ico.js')
+    ico:  require('./helpers/ico.js')
 }
 
 // -- Load addons --
 var addonList = [];
-var addonToLoadList = [
-    'youtube',
-    'simple-image',
-    'simple-oembed',
-    'simple-url',
-    'syna-info',
-    'no-result'
-];
+var addonToLoadList = config.get('addons');
+
+if(addonToLoadList || addonToLoadList.length == 0) {
+    addonToLoadList.push('no-result');
+}
 
 addonToLoadList.forEach(function(addonName, i) {
     addonList.push(require('./addons/'+ addonName + '.js'));
