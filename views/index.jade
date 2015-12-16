@@ -4,6 +4,7 @@ block imports
     script(src="/js/i18n.js")
     script(src="/socket.io/socket.io.js")
     script(src="/js/sync.js")
+    script(src="/js/manager.js")
     link(rel="stylesheet", href="/css/manager.css")
     script(src="//cdnjs.cloudflare.com/ajax/libs/Sortable/1.4.2/Sortable.min.js")
     link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
@@ -31,4 +32,3 @@ block content
                     form#command(action="/api/v1/sendText" method="POST")
                         .form-group
                             input.form-control(name="input", type='text', placeholder='Demandez à Syna')
-                script(src="/js/manager.js")
