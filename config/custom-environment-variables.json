@@ -1,0 +1,6 @@
+{
+  "server": {
+    "host": "SYNA_PORT_7379_TCP_ADDR",
+    "port": "SYNA_PORT_7379_TCP_PORT"
+  }
+}
