@@ -1,16 +1,30 @@
 $(document).ready(function() {
     window.syna = {};
+    window.syna.hooks = {};
 
     // -- Methods --
-    window.syna.display = function(html) {
+    window.syna.display = function(html, hooks) {
         $('#display').html(html);
+
+        if(hooks && hooks.ondisplay) {
+            var hook = hooks.ondisplay;
+            if(window.syna.hooks.hasOwnProperty(hook)) {
+                window.syna.hooks[hook]("id"); // TODO Generate an ID --
+            }
+        }
     };
 
     // -- Hooks --
-    window.syna.hooks = {};
 
     window.syna.hooks.autoplaySlideshare = function(id) {
-        console.log('AUTOPLAY');
+
+        var clickOnNext = function() {
+            var button = $("iframe").contents().find('#btnNext');
+            button.click();
+            setTimeout(clickOnNext, 4000);
+        }
+
+        clickOnNext();
     };
 
     // -- Instructions --

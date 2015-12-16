@@ -23,9 +23,9 @@ var callAI = function(req, res, input, callback) {
     });
 };
 
-var useAsDisplay = function(res, html) {
+var useAsDisplay = function(res, html, result) {
     if(window.syna) {
-        window.syna.display(html);
+        window.syna.display(html, result.data.hooks);
         res.status(201).json({ message: "Input displayed." });
     }
     else {
@@ -61,7 +61,7 @@ router.get('/sendText', function(req, res) {
     // Call the AI to get content --
     callAI(req, res, input, function(req, res, result, html) {
         if(req.query.display && req.query.display)  {
-            useAsDisplay(res, html);
+            useAsDisplay(res, html, result);
         }
         else {
             useAsResponse(res, html, result);

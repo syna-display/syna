@@ -11,6 +11,16 @@ if(!list) {
     console.info('No oembed provider defined.');
 }
 
+// Internal methods --
+
+var addProviderInfo = function(provider, object) {
+    object.ico = ico.domain(provider.hostname)
+    object.hooks = provider.hooks ? provider.hooks : [];
+    return object;
+}
+
+// Usable methods --
+
 exports.contains = function(inputUrl) {
     if(!inputUrl) {
         return {};
@@ -54,19 +64,17 @@ exports.handle = function(provider, input, handle, ignore) {
 
         switch(body.type) {
             case "photo":
-                handle({
+                handle(addProviderInfo(provider, {
                     view: 'simple-image',
-                    url: body.url,
-                    ico: ico.domain(provider.hostname)
-                });
+                    url: body.url
+                }));
                 return;
             case "video":
             case "rich":
-                handle({
+                handle(addProviderInfo(provider, {
                     view: 'raw',
-                    code: body.html,
-                    ico: ico.domain(provider.hostname)
-                });
+                    code: body.html
+                }));
                 return;
             case "link":
                 console.error("Impossible to handle oEmbed result: link not supported");
