@@ -7,7 +7,8 @@ exports.show = function (req, res, next) {
 
     return res.render("index", {
         errors: req.flash('error'),
-        user: req.user,
+        username: req.user.username,
+        code: req.user.code,
         commandlist: [ // some examples
             {
                 id: 12,

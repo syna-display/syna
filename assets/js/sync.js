@@ -16,7 +16,7 @@
                 url: formURL,
                 data: postData,
                 beforeSend: function (xhr) {
-                    xhr.setRequestHeader ('Authorization', 'Basic ' + btoa('user:' + "code"));
+                    xhr.setRequestHeader ('Authorization', 'Basic ' + btoa(user.username + ':' + user.code));
                 },
                 success: function (res, html, result) {
                     if (res.bang.name != "no-result") {

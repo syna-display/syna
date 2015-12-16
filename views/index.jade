@@ -32,3 +32,8 @@ block content
                     form#command(action="/api/v1/sendText" method="POST")
                         .form-group
                             input.form-control(name="input", type='text', placeholder='Demandez à Syna')
+    script.
+        var user = {
+            username: "#{username}",
+            code: "#{code}"
+        };

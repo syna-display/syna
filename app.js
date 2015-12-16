@@ -61,7 +61,11 @@ db.get(function(database) {
         function(username, code, done) {
             process.nextTick(function () {
                     if (database.codes.findOne({ 'code': code, 'valid': true }) != null) {
-                        return done(null, username);
+                        var user = {
+                            username: username,
+                            code: code
+                        };
+                        return done(null, user);
                     } else {
                         return done(null, false, { message: i18n.__('Error: Invalid code') });
                     }
