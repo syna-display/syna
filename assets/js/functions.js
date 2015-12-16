@@ -1,9 +1,39 @@
 window.syna = {};
 window.syna.hooks = {};
 
+// -- Custom promise system --
+
+window.syna.status = {
+    code:   false,
+    jquery: false,
+    server: false
+}
+
+window.syna.onLoaded = function(resource) {
+    if(window.syna.status.hasOwnProperty(resource)) {
+        window.syna.status[resource] = true;
+    }
+    var ready = true;
+
+    for (var status in window.syna.status) {
+        if (window.syna.status.hasOwnProperty(status)) {
+            if(!window.syna.status[status]) {
+                ready = false;
+            }
+        }
+    }
+
+    if(ready) {
+        window.syna.startTile();
+    }
+}
+
+// -- Start jquery functions --
+
 $(document).ready(function () {
 
     // -- Methods --
+
     window.syna.display = function (html, hooks) {
         $('#display').html(html);
 
@@ -42,8 +72,7 @@ $(document).ready(function () {
 
     // -- Instructions --
 
-    // Start tile --
-    var startTile = function () {
+    window.syna.startTile = function () {
         $.ajax({
             type: "POST",
             url: 'http://localhost:' + window.config.server.port + '/api/v1/sendText',
@@ -59,10 +88,11 @@ $(document).ready(function () {
             },
             error: function () {
                 console.log('Error on start tile. Retry in 3 seconds.');
-                setTimeout(startTile, 3000);
+                setTimeout(window.syna.startTile, 3000);
             },
             dataType: "json"
         });
     };
-    startTile();
+
+    window.syna.onLoaded('jquery');
 });

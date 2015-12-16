@@ -144,6 +144,9 @@ db.get(function(database) {
                 console.info('Server started on http://%s:%d', localIPs[currentInterface].IPv4, server.address().port);
             }
         }
+
+        // Signal to function.js --
+        window.syna.onLoaded('server');
     });
 });
 
