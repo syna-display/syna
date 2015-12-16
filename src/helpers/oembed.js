@@ -1,23 +1,14 @@
 var request     = require('request-json'),
     urlencode   = require('urlencode'),
     path        = require('path'),
+    config      = require('config'),
     ico         = require(path.resolve('./src/helpers/ico'));
 
-var list = {
-    "flickr" : {
-        contains: [ "flickr" ],
-        data: {
-            hostname: "http://www.flickr.com",
-            path: "/services/oembed"
-        }
-    },
-    "slideshare" : {
-        contains: [ "slideshare" ],
-        data: {
-            hostname: "http://fr.slideshare.net",
-            path: "/api/oembed/2"
-        }
-    }
+var list = config.get('oembed');
+
+if(!list) {
+    list = [];
+    console.info('No oembed provider defined.');
 }
 
 exports.contains = function(inputUrl) {

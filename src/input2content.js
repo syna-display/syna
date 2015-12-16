@@ -13,7 +13,7 @@ var helper = {
 var addonList = [];
 var addonToLoadList = config.get('addons');
 
-if(addonToLoadList || addonToLoadList.length == 0) {
+if(!addonToLoadList || addonToLoadList.length == 0) {
     addonToLoadList.push('no-result');
 }
 

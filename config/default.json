@@ -12,5 +12,21 @@
       "syna-info",
       "no-result"
   ],
+  "oembed" : {
+      "flickr" : {
+          "contains": [ "flickr" ],
+          "data": {
+              "hostname": "http://www.flickr.com",
+              "path": "/services/oembed"
+          }
+      },
+      "slideshare" : {
+          "contains": [ "slideshare" ],
+          "data": {
+              "hostname": "http://fr.slideshare.net",
+              "path": "/api/oembed/2"
+          }
+      }
+  },
   "debug": false
 }
