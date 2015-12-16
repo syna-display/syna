@@ -90,7 +90,7 @@ db.get(function(database) {
     function onAuthorizeSuccess(data, accept){
         i18n.init(data);
         data.locale = i18n.getLocale(data);
-        console.info(new Date().toLocaleString() + ' Successful connection to socket.io (lang: ' + data.user.locale + ')');
+        console.info(new Date().toLocaleString() + ' Successful connection to socket.io (lang: ' + data.locale + ')');
         accept();
     }
 
