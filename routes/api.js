@@ -2,6 +2,7 @@ var express         = require('express'),
     router          = express.Router(),
     input2content   = require('../src/input2content'),
     path            = require('path'),
+    passport        = require('passport'),
     network         = require(path.resolve('./src/network')),
     db              = require(path.resolve('./src/db'));
 
@@ -43,13 +44,7 @@ var useAsResponse = function(res, html, result) {
 
 
 // Main route --
-router.post('/sendText', function(req, res) {
-
-    // Check rights --
-    if (!req.isAuthenticated() && false) {
-        res.status(401).json({ error: 'Unauthorized request.' });
-        return;
-    }
+router.post('/sendText', passport.authenticate('basic', { session: true }), function(req, res) {
 
     // Check params --
     var input = req.body.input;

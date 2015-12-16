@@ -29,7 +29,8 @@ function loadHandler() {
         items = db.addCollection('items');
     }
 
-    console.log('code: ' + codes.findOne({ 'valid': true }).code);
+    window.syna.code = codes.findOne({ 'valid': true }).code;
+    console.log('code: ' + window.syna.code);
     deferred.resolve({codes: codes, items: items});
 }
 

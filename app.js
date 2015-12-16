@@ -16,6 +16,7 @@ var express = require('express'),
     db = require(path.resolve('./src/db')),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
+    BasicStrategy = require('passport-http').BasicStrategy,
     lokiStore = require('loki-session'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
@@ -65,6 +66,16 @@ db.get(function(database) {
                         return done(null, false, { message: i18n.__('Error: Invalid code') });
                     }
             });
+        }
+    ));
+
+    passport.use(new BasicStrategy(
+        function(username, code, done) {
+            if (database.codes.findOne({ 'code': code, 'valid': true }) != null) {
+                return done(null, username);
+            } else {
+                return done(null, false, { message: i18n.__('Error: Invalid code') });
+            }
         }
     ));
 
