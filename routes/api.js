@@ -39,11 +39,16 @@ var useAsDisplay = function(res, html, result) {
 var useAsResponse = function(res, html, result) {
     res.json({
         id: crypto.randomBytes(20).toString('hex'),
-        bang: result.data.view,
-        icotype: result.data.ico.type,
-        ico: result.data.ico.url,
         request: result.request.bang.input,
-        html: html
+        bang: {
+            name: result.data.view,
+            icotype: result.data.ico.type,
+            ico: result.data.ico.uri
+        },
+        result: {
+            html: html,
+            url: result.data.url
+        }
     });
 };
 
