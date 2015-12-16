@@ -16,6 +16,7 @@ var express = require('express'),
     db = require(path.resolve('./src/db')),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
+    BasicStrategy = require('passport-http').BasicStrategy,
     lokiStore = require('loki-session'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
@@ -68,6 +69,16 @@ db.get(function(database) {
         }
     ));
 
+    passport.use(new BasicStrategy(
+        function(username, code, done) {
+            if (database.codes.findOne({ 'code': code, 'valid': true }) != null) {
+                return done(null, username);
+            } else {
+                return done(null, false, { message: i18n.__('Error: Invalid code') });
+            }
+        }
+    ));
+
     passport.serializeUser(function(user, done) {
         done(null, user);
     });
@@ -79,7 +90,7 @@ db.get(function(database) {
     function onAuthorizeSuccess(data, accept){
         i18n.init(data);
         data.locale = i18n.getLocale(data);
-        console.info(new Date().toLocaleString() + ' Successful connection to socket.io (lang: ' + data.user.locale + ')');
+        console.info(new Date().toLocaleString() + ' Successful connection to socket.io (lang: ' + data.locale + ')');
         accept();
     }
 
@@ -110,6 +121,11 @@ db.get(function(database) {
     app.all('/', index.show);
     app.all('/login', login.show);
     app.use('/api/v1', api);
+
+    app.use(express.static(path.resolve('./assets')));
+    app.use(express.static(path.resolve('./node_modules/bootstrap/dist')));
+    app.use('/css', express.static(path.resolve('./node_modules/bootswatch/yeti')));
+    app.use('/js', express.static(path.resolve('./node_modules/jquery/dist')));
 
     app.use(function(req, res, next) {
         return res.render('404', {

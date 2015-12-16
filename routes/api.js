@@ -2,8 +2,10 @@ var express         = require('express'),
     router          = express.Router(),
     input2content   = require('../src/input2content'),
     path            = require('path'),
+    passport        = require('passport'),
     network         = require(path.resolve('./src/network')),
-    db              = require(path.resolve('./src/db'));
+    db              = require(path.resolve('./src/db')),
+    crypto          = require('crypto');
 
 // Functions --
 var callAI = function(req, res, input, callback) {
@@ -35,38 +37,46 @@ var useAsDisplay = function(res, html, result) {
 
 var useAsResponse = function(res, html, result) {
     res.json({
-        request: result.request,
-        data: result.data,
-        rendered: html
+        id: crypto.randomBytes(20).toString('hex'),
+        bang: result.data.view,
+        icotype: result.data.ico.type,
+        ico: result.data.ico.url,
+        request: result.request.bang.input,
+        html: html
     });
 };
 
 
 // Main route --
-router.get('/sendText', function(req, res) {
+//router.post('/sendText', passport.authenticate('basic', { session: true }), function(req, res) {
+router.post('/sendText', function(req, res, next) {
 
-    // Check rights --
-    if (!req.isAuthenticated() && false) {
-        res.status(401).json({ error: 'Unauthorized request.' });
-        return;
-    }
+    passport.authenticate('basic', function(err, user, info){
 
-    // Check params --
-    var input = req.query.input;
-    if(!input) {
-        res.status(400).json({ error: "Missing 'input' parameter." });
-        return;
-    }
+        if(err) return console.log(err);
 
-    // Call the AI to get content --
-    callAI(req, res, input, function(req, res, result, html) {
-        if(req.query.display && req.query.display)  {
-            useAsDisplay(res, html, result);
+        if(!user){
+            res.set('WWW-Authenticate', 'syna' + info);
+            return res.send(401);
         }
-        else {
-            useAsResponse(res, html, result);
+
+        // Check params --
+        var input = req.body.input;
+        if(!input) {
+            res.status(400).json({ error: "Missing 'input' parameter." });
+            return;
         }
-    });
+
+        // Call the AI to get content --
+        callAI(req, res, input, function(req, res, result, html) {
+            if(req.body.display && req.body.display)  {
+                useAsDisplay(res, html);
+            }
+            else {
+                useAsResponse(res, html, result);
+            }
+        });
+    })(req, res, next);
 });
 
 // Secondary route --
