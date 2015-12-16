@@ -17,10 +17,19 @@ $(document).ready(function() {
     // -- Hooks --
 
     window.syna.hooks.autoplaySlideshare = function(id) {
-
         var clickOnNext = function() {
-            var button = $("iframe").contents().find('#btnNext');
-            button.click();
+            var iframe = $("iframe").contents();
+
+            iframe.find('#btnNext').click();
+
+            // Replay --
+            if(iframe.find('#total-slides').text() == iframe.find('#current-slide').text()) {
+                var btns = iframe.find('.replay-btn');
+                if(btns.length > 0) {
+                    btns[0].click();
+                }
+            }
+
             setTimeout(clickOnNext, 4000);
         }
 
