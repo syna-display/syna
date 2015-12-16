@@ -48,24 +48,35 @@ var useAsResponse = function(res, html, result) {
 
 
 // Main route --
-router.post('/sendText', passport.authenticate('basic', { session: true }), function(req, res) {
+//router.post('/sendText', passport.authenticate('basic', { session: true }), function(req, res) {
+router.post('/sendText', function(req, res, next) {
 
-    // Check params --
-    var input = req.body.input;
-    if(!input) {
-        res.status(400).json({ error: "Missing 'input' parameter." });
-        return;
-    }
+    passport.authenticate('basic', function(err, user, info){
 
-    // Call the AI to get content --
-    callAI(req, res, input, function(req, res, result, html) {
-        if(req.body.display && req.body.display)  {
-            useAsDisplay(res, html);
+        if(err) return console.log(err);
+
+        if(!user){
+            res.set('WWW-Authenticate', 'syna' + info);
+            return res.send(401);
         }
-        else {
-            useAsResponse(res, html, result);
+
+        // Check params --
+        var input = req.body.input;
+        if(!input) {
+            res.status(400).json({ error: "Missing 'input' parameter." });
+            return;
         }
-    });
+
+        // Call the AI to get content --
+        callAI(req, res, input, function(req, res, result, html) {
+            if(req.body.display && req.body.display)  {
+                useAsDisplay(res, html);
+            }
+            else {
+                useAsResponse(res, html, result);
+            }
+        });
+    })(req, res, next);
 });
 
 // Secondary route --
