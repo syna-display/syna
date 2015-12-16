@@ -6,6 +6,13 @@ $(document).ready(function() {
         $('#display').html(html);
     };
 
+    // -- Hooks --
+    window.syna.hooks = {};
+
+    window.syna.hooks.autoplaySlideshare = function(id) {
+        console.log('AUTOPLAY');
+    };
+
     // -- Instructions --
 
     // Start tile --
