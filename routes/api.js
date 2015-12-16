@@ -48,7 +48,6 @@ var useAsResponse = function(res, html, result) {
 
 
 // Main route --
-//router.post('/sendText', passport.authenticate('basic', { session: true }), function(req, res) {
 router.post('/sendText', function(req, res, next) {
 
     passport.authenticate('basic', function(err, user, info){
@@ -61,7 +60,8 @@ router.post('/sendText', function(req, res, next) {
         }
 
         // Check params --
-        var input = req.body.input;
+        var input = req.body.input || req.query.input;
+        var display = req.body.display || req.query.display;
         if(!input) {
             res.status(400).json({ error: "Missing 'input' parameter." });
             return;
@@ -69,8 +69,8 @@ router.post('/sendText', function(req, res, next) {
 
         // Call the AI to get content --
         callAI(req, res, input, function(req, res, result, html) {
-            if(req.body.display && req.body.display)  {
-                useAsDisplay(res, html);
+            if(display)  {
+                useAsDisplay(res, html, result);
             }
             else {
                 useAsResponse(res, html, result);
