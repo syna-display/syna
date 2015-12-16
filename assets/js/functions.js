@@ -10,11 +10,14 @@ window.syna.status = {
 }
 
 window.syna.onLoaded = function(resource) {
+
+    // Set the resource to true --
     if(window.syna.status.hasOwnProperty(resource)) {
         window.syna.status[resource] = true;
     }
-    var ready = true;
 
+    // Check every resource --
+    var ready = true;
     for (var status in window.syna.status) {
         if (window.syna.status.hasOwnProperty(status)) {
             if(!window.syna.status[status]) {
@@ -23,8 +26,10 @@ window.syna.onLoaded = function(resource) {
         }
     }
 
+    // Start the view --
     if(ready) {
         window.syna.startTile();
+        window.syna.startOverlay();
     }
 }
 
@@ -89,6 +94,31 @@ $(document).ready(function () {
             error: function () {
                 console.log('Error on start tile. Retry in 3 seconds.');
                 setTimeout(window.syna.startTile, 3000);
+            },
+            dataType: "json"
+        });
+    };
+
+    window.syna.startOverlay = function () {
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:' + window.config.server.port + '/api/v1/info',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader ('Authorization', 'Basic ' + btoa('syna:' + window.syna.code));
+            },
+            success: function (result) {
+                var overlay = $('#overlay');
+                for (ip of result.ips) {
+                    overlay.append($('<p></p>').addClass('ip').text(ip));
+                    console.log(result);
+                }
+                overlay.append($('<p></p>').addClass('code').html('Code : <span class="code">' + result.code + '</span>'));
+
+                console.log('Overlay: OK');
+            },
+            error: function () {
+                console.log('Error on overlay initialisation. Retry in 3 seconds.');
+                setTimeout(window.syna.startOverlay, 3000);
             },
             dataType: "json"
         });

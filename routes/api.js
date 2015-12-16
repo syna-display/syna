@@ -1,11 +1,12 @@
 var express         = require('express'),
     router          = express.Router(),
-    input2content   = require('../src/input2content'),
+    crypto          = require('crypto'),
     path            = require('path'),
     passport        = require('passport'),
+    input2content   = require(path.resolve('./src/input2content')),
     network         = require(path.resolve('./src/network')),
     db              = require(path.resolve('./src/db')),
-    crypto          = require('crypto');
+    synaInfo        = require(path.resolve('./src/addons/syna-info'));
 
 // Functions --
 var callAI = function(req, res, input, callback) {
@@ -81,19 +82,21 @@ router.post('/sendText', function(req, res, next) {
 
 // Secondary route --
 router.get('/info', function(req, res) {
-    var localIPs = network.getLocalIPs(),
-        result = { ips: [], code: "" };
-
-    for (var currentInterface in localIPs) {
-        if (localIPs.hasOwnProperty(currentInterface) && localIPs[currentInterface].IPv4 != "127.0.0.1") {
-            result.ips.push('http://' + localIPs[currentInterface].IPv4 + '/');
+    var request = {
+        bang: {
+            tag: 'info'
         }
-    }
+    };
 
-    db.get(function(database) {
-        result.code = database.codes.findOne({ 'valid': true }).code;
-        res.status(200).json(result);
-    });
+    synaInfo(request, function(info) {
+        var response = {
+            code: info.code,
+            ips: info.ips
+        }
+        res.status(200).json(response);
+    }, function() {
+        res.status(500).json({error: 'The AI is lazy'});
+    })
 });
 
 module.exports = router;
