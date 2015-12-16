@@ -3,7 +3,8 @@ var express         = require('express'),
     input2content   = require('../src/input2content'),
     path            = require('path'),
     network         = require(path.resolve('./src/network')),
-    db              = require(path.resolve('./src/db'));
+    db              = require(path.resolve('./src/db')),
+    crypto          = require('crypto');
 
 // Functions --
 var callAI = function(req, res, input, callback) {
@@ -35,9 +36,12 @@ var useAsDisplay = function(res, html) {
 
 var useAsResponse = function(res, html, result) {
     res.json({
-        request: result.request,
-        data: result.data,
-        rendered: html
+        id: crypto.randomBytes(20).toString('hex'),
+        bang: result.data.view,
+        icotype: result.data.ico.type,
+        ico: result.data.ico.url,
+        request: result.request.bang.input,
+        html: html
     });
 };
 
