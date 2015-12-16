@@ -50,6 +50,14 @@ $(document).ready(function () {
         }
     };
 
+    window.syna.displayOverlay = function(duration) {
+        var overlay = $("#overlay");
+        overlay.show(200);
+        setTimeout(function() {
+            overlay.hide(200);
+        }, duration * 1000);
+    }
+
     // -- Hooks --
 
     window.syna.hooks.autoplaySlideshare = function(id) {
@@ -108,9 +116,9 @@ $(document).ready(function () {
             },
             success: function (result) {
                 var overlay = $('#overlay');
+                overlay.hide();
                 for (ip of result.ips) {
                     overlay.append($('<p></p>').addClass('ip').text(ip));
-                    console.log(result);
                 }
                 overlay.append($('<p></p>').addClass('code').html('Code : <span class="code">' + result.code + '</span>'));
 

@@ -99,4 +99,15 @@ router.get('/info', function(req, res) {
     })
 });
 
+router.post('/displayOverlay', function(req, res) {
+    if(window.syna) {
+        var duration = req.body.duration || req.query.duration || 30;
+        window.syna.displayOverlay(duration);
+        res.status(201).json({ message: "Overlay displayed." });
+    }
+    else {
+        res.status(500).json({ error: "Missing view." });
+    }
+});
+
 module.exports = router;
