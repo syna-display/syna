@@ -1,0 +1,25 @@
+html, body {
+    height: 100%;
+}
+.heightinherit {
+    height: inherit;
+}
+/* ORDONNANCEUR */
+.block-commands {
+    height: 75%;
+    overflow: auto;
+    background-color: #e4e6e8;
+}
+    .block-commands .material-icons {
+        vertical-align: top;
+    }
+    .block-commands .command {
+        overflow: hidden;
+    }
+    .block-commands .button {
+        text-align: right;
+    }
+    .block-commands .sortable-ghost {
+        opacity: 0.4;
+        background-color: #92e6de;
+    }

@@ -111,6 +111,11 @@ db.get(function(database) {
     app.all('/login', login.show);
     app.use('/api/v1', api);
 
+    app.use(express.static(path.resolve('./assets')));
+    app.use(express.static(path.resolve('./node_modules/bootstrap/dist')));
+    app.use('/css', express.static(path.resolve('./node_modules/bootswatch/yeti')));
+    app.use('/js', express.static(path.resolve('./node_modules/jquery/dist')));
+
     app.use(function(req, res, next) {
         return res.render('404', {
             title: i18n.__('Page not found')
