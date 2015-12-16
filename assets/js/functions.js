@@ -20,10 +20,13 @@ $(document).ready(function() {
         var clickOnNext = function() {
             var iframe = $("iframe").contents();
 
+            // Replay --
+            var total   = iframe.find('#total-slides').text(),
+                current = iframe.find('#current-slide').text();
+
             iframe.find('#btnNext').click();
 
-            // Replay --
-            if(iframe.find('#total-slides').text() == iframe.find('#current-slide').text()) {
+            if(current == total && total != '') {
                 var btns = iframe.find('.replay-btn');
                 if(btns.length > 0) {
                     btns[0].click();
