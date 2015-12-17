@@ -128,7 +128,7 @@ db.get(function(database) {
     app.use('/api/v1', api);
 
     app.use(express.static(path.resolve('./assets')));
-    app.use(express.static(path.resolve('./node_modules/bootstrap/dist')));
+    app.use('/js', express.static(path.resolve('./node_modules/bootstrap/dist/js')));
     app.use('/css', express.static(path.resolve('./node_modules/bootswatch/yeti')));
     app.use('/js', express.static(path.resolve('./node_modules/jquery/dist')));
 
