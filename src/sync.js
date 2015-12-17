@@ -8,8 +8,10 @@ exports.init = function(socket) {
     db.get(function(database) {
         socket.emit("items:list", database.items.find());
 
-        socket.on("items:new", function(data) {
+        socket.on("items:new", function(data, callback) {
             // Add and display a new item
+            socket.broadcast.emit("items:new", data);
+            callback(data);
         });
     });
 

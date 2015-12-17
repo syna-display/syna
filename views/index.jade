@@ -4,31 +4,25 @@ block imports
     script(src="/js/i18n.js")
     script(src="/socket.io/socket.io.js")
     script(src="/js/sync.js")
+    script(src="/js/manager.js")
     link(rel="stylesheet", href="/css/manager.css")
     script(src="//cdnjs.cloudflare.com/ajax/libs/Sortable/1.4.2/Sortable.min.js")
     link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
 block content
+    .container.content
+        h1 Manager
     .container.content.heightinherit
         .row.heightinherit
             .col-md-12.heightinherit
                 .block-commands
                     #commands.list-group
-                        each val in commandlist
-                            .list-group-item(id= val.id)
-                                .row
-                                    div.bang.col-md-1
-                                        if val.bangico != ''
-                                            i.material-icons= val.bangico
-                                        else
-                                            img(src=val.bangicourl alt=val.banglong)
-                                    div.command.col-md-10
-                                        =val.command
-                                    div.button.col-md-1
-                                        button.btn.btn-default(type='button')
-                                            i.material-icons cast
                 hr
                 .block-command
                     form#command(action="/api/v1/sendText" method="POST")
                         .form-group
                             input.form-control(name="input", type='text', placeholder='Demandez à Syna')
-                script(src="/js/manager.js")
+    script.
+        var user = {
+            username: "#{username}",
+            code: "#{code}"
+        };
