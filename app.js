@@ -114,12 +114,13 @@ db.get(function(database) {
         cookieAuth(socket, next);
     });
 
-    var index = require(path.resolve('./routes/index'));
-    var login = require(path.resolve('./routes/login'));
-    var api   = require(path.resolve('./routes/api'));
+    var index = require(path.resolve('./routes/index')),
+        auth = require(path.resolve('./routes/auth')),
+        api   = require(path.resolve('./routes/api'));
 
     app.all('/', index.show);
-    app.all('/login', login.show);
+    app.all('/login', auth.login);
+    app.all("/logout", auth.logout);
     app.use('/api/v1', api);
 
     app.use(express.static(path.resolve('./assets')));

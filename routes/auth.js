@@ -1,7 +1,7 @@
 var passport = require("passport"),
     i18n = require('i18n');
 
-exports.show = function(req, res, next) {
+exports.login = function(req, res, next) {
     if (req.method === "GET") {
         if (req.isAuthenticated()) {
             res.redirect('/');
@@ -21,4 +21,9 @@ exports.show = function(req, res, next) {
             });
         })(req, res, next);
     }
+};
+
+exports.logout = function(req, res, next) {
+    req.logout();
+    res.redirect('/');
 };
