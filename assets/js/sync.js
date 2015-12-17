@@ -23,6 +23,14 @@
             document.getElementById("commands").appendChild(div)
         };
 
+        var clearCommand = function () {
+            $(':input','#command')
+                .not(':button, :submit, :reset, :hidden')
+                .val('')
+                .removeAttr('checked')
+                .removeAttr('selected');
+        };
+
         // Send command's result
         $("#command").submit(function (e) {
             var postData = $(this).serialize();
@@ -39,6 +47,7 @@
                     if (res.bang.name != "no-result") {
                         socket.emit("items:new", {data: res}, function (data) {
                             addItem(data.data);
+                            clearCommand();
                         });
                     }
                 }
