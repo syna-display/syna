@@ -10,6 +10,7 @@ exports.init = function(socket) {
 
         socket.on("items:new", function(data, callback) {
             // Add and display a new item
+            socket.broadcast.emit("items:new", data);
             callback(data);
         });
     });

@@ -45,5 +45,10 @@
             });
             e.preventDefault();
         });
+
+        // Sync clients
+        socket.on("items:new", function (data) {
+            addItem(data.data);
+        });
     });
 })(jQuery);
