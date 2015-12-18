@@ -10,10 +10,13 @@ block imports
     link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
 block content
     .container.content
-        h1 Manager
-    .container.content.heightinherit
-        .row.heightinherit
-            .col-md-12.heightinherit
+        .row
+            .col-md-11
+                h1 Manager
+            .col-md-1
+                a(href="/logout").btn.btn-default Déconnexion
+        .row
+            .col-md-12
                 .block-commands
                     #commands.list-group
                 hr
@@ -21,8 +24,8 @@ block content
                     form#command(action="/api/v1/sendText" method="POST")
                         .form-group
                             input.form-control(name="input", type='text', placeholder='Demandez à Syna')
-    script.
-        var user = {
-            username: "#{username}",
-            code: "#{code}"
-        };
+        script.
+            var user = {
+                username: "#{username}",
+                code: "#{code}"
+            };

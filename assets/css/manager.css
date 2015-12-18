@@ -1,15 +1,12 @@
-html, body {
-    height: 100%;
-}
-.heightinherit {
-    height: inherit;
-}
 /* ORDONNANCEUR */
 .block-commands {
-    height: 75%;
+    max-height: 75vh;
     overflow: auto;
     background-color: #e4e6e8;
 }
+    .block-commands .list-group {
+        margin-bottom: 0;
+    }
     .block-commands .material-icons {
         vertical-align: top;
     }
