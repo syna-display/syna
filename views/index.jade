@@ -1,6 +1,5 @@
 extend layout
 block imports
-    script(src="/js/jquery.min.js")
     script(src="/js/i18n.js")
     script(src="/socket.io/socket.io.js")
     script(src="/js/sync.js")
@@ -14,7 +13,8 @@ block content
             .col-md-11
                 h1 Manager
             .col-md-1
-                a(href="/logout").btn.btn-default Déconnexion
+                a#logout.btn.btn-info(href='/logout')
+                    span.glyphicon.glyphicon-log-out
         .row
             .col-md-12
                 .block-commands
@@ -23,7 +23,7 @@ block content
                 .block-command
                     form#command(action="/api/v1/sendText" method="POST")
                         .form-group
-                            input.form-control(name="input", type='text', placeholder='Demandez à Syna')
+                            input.form-control(name="input", type='text', placeholder='Demandez à Sýna')
         script.
             var user = {
                 username: "#{username}",
