@@ -47,7 +47,8 @@ var useAsResponse = function(res, html, result) {
         },
         result: {
             html: html,
-            url: result.data.url
+            url: result.data.url,
+            hooks: result.data.hooks
         }
     });
 };

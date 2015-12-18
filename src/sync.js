@@ -9,9 +9,11 @@ exports.init = function(socket) {
         socket.emit("items:list", database.items.find());
 
         socket.on("items:new", function(data, callback) {
-            // Add and display a new item
-            socket.broadcast.emit("items:new", data);
-            callback(data);
+            if(window.syna) {
+                window.syna.display(data.data.result.html, data.data.result.hooks);
+                socket.broadcast.emit("items:new", data);
+                callback(data);
+            }
         });
     });
 
