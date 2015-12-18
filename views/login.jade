@@ -1,6 +1,11 @@
 extend layout
+block imports
+    script(src="/js/jquery.min.js")
+    script(src="/js/login.js")
 block content
     .container.content
+        .row
+            img.img-responsive.center-block(src="/img/logo.png")
         .row
             .col-lg-12
                 h1.page-header #{__("Connection")}
@@ -13,7 +18,9 @@ block content
                     .form-group
                         label(for="code")
                             | #{__("Code")}
-                        input.form-control(id="code", name="code", type="text")
+                        #code-input
+                            input.form-control(id="code", name="code", type="text")
+                            a(href="/api/v1/displayOverlay") Afficher le code à l'écran
                     .form-group
                         label(for="username")
                             | #{__("Username")}
