@@ -1,4 +1,8 @@
 /* Syna-info */
+.tile-syna-info {
+    background-image: url("http://localhost:7379/img/bckgrd-smooth.jpg");
+}
+
 .tile-syna-info .centered {
     max-width: 500px;
     margin: 20px auto;
