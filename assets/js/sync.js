@@ -20,7 +20,7 @@
                                 '</div>'+
                             '</div>';
 
-            document.getElementById("commands").appendChild(div)
+            $("#commands").prepend(div);
         };
 
         var clearCommand = function () {
