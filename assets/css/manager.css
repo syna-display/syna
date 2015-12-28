@@ -1,7 +1,3 @@
-#logout {
-    margin: 20px 0 10px 0;
-}
-
 /* ORDONNANCEUR */
 .block-commands {
     max-height: 75vh;
@@ -24,3 +20,10 @@
         opacity: 0.4;
         background-color: #92e6de;
     }
+#submitcommand {
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+    background-image: url("/img/mascotte.png");
+    background-size: 50px 50px;
+}

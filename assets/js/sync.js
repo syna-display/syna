@@ -6,23 +6,22 @@
 
         var socket = io.connect("//" + window.location.host);
 
+        // Add an item on top of the list
         var addItem = function (item) {
             var div = document.createElement('div');
             div.id = item.id;
             div.className = "list-group-item";
             div.innerHTML = '<div class="row">'+
-                                '<div class="bang col-md-1"><img src="'+ item.bang.ico +'" alt="'+ item.bang.name +'"/></div>'+
-                                '<div class="command col-md-10">'+
+                                '<div class="bang col-lg-1 col-md-1 col-sm-2 col-xs-2"><img src="'+ item.bang.ico +'" alt="'+ item.bang.name +'"/></div>'+
+                                '<div class="command col-lg-11 col-md-11 col-sm-10 col-xs-10">'+
                                     item.request+
-                                '</div>'+
-                                '<div class="button col-md-1">'+
-                                    '<button type="button" class="btn btn-default"><i class="material-icons">cast</i></button>'+
                                 '</div>'+
                             '</div>';
 
             $("#commands").prepend(div);
         };
 
+        // Clear command's text
         var clearCommand = function () {
             $(':input','#command')
                 .not(':button, :submit, :reset, :hidden')
@@ -32,10 +31,11 @@
         };
 
         // Send command's result
-        $("#command").submit(function (e) {
-            var postData = $(this).serialize();
-            var formURL = $(this).attr("action");
-            var method = $(this).attr("method");
+        var sendText = function () {
+            var command = $("#command");
+            var postData = command.serialize();
+            var formURL = command.attr("action");
+            var method = command.attr("method");
             $.ajax({
                 type: method,
                 url: formURL,
@@ -52,12 +52,23 @@
                     }
                 }
             });
-            e.preventDefault();
-        });
+        };
 
         // Sync clients
         socket.on("items:new", function (data) {
             addItem(data.data);
+        });
+
+        // Send command's result
+        $("#command").submit(function (e) {
+            sendText();
+            e.preventDefault();
+        });
+
+        // Send command's result
+        $("#submitcommand").click(function (e) {
+            sendText();
+            e.preventDefault();
         });
     });
 })(jQuery);

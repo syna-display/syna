@@ -14,7 +14,7 @@ block content
                 a#endsession.btn.btn-danger(href='') Terminer la session
         .row
             .col-lg-11.col-md-11.col-sm-10.col-xs-10
-                h1 Manager
+                h1 Liste d'affichage
             .col-lg-1.col-md-1.col-sm-2.col-xs-2
                 a#logout.btn.btn-info(href='/logout')
                     span.glyphicon.glyphicon-log-out
@@ -23,10 +23,13 @@ block content
                 .block-commands
                     #commands.list-group
                 hr
-                .block-command
-                    form#command(action="/api/v1/sendText" method="POST")
-                        .form-group
-                            input.form-control(name="input", type='text', placeholder='Demandez à Sýna')
+                .col-lg-11.col-md-11.col-sm-10.col-xs-10
+                    .block-command
+                        form#command(action="/api/v1/sendText" method="POST")
+                            .form-group
+                                input.form-control(name="input", type='text', placeholder='Demandez à Sýna')
+                .col-lg-1.col-md-1.col-sm-2.col-xs-2
+                    a#submitcommand(href='')
         script.
             var user = {
                 username: "#{username}",
