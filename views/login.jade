@@ -5,12 +5,13 @@ block imports
 block content
     .container.content
         .row
-            img.img-responsive.center-block(src="/img/logo.png")
+            .col-lg-6.col-lg-offset-3.col-md-8.col-md-offset-2.col-sm-8.col-sm-offset-2.col-xs-12.col-xs-offset-0
+                img.img-responsive.center-block.m-t-3(src="/img/logo.png")
         .row
-            .col-lg-12
+            .col-lg-6.col-lg-offset-3.col-md-8.col-md-offset-2.col-sm-8.col-sm-offset-2.col-xs-12.col-xs-offset-0
                 h1.page-header #{__("Connection")}
         .row
-            .col-lg-12
+            .col-lg-6.col-lg-offset-3.col-md-8.col-md-offset-2.col-sm-8.col-sm-offset-2.col-xs-12.col-xs-offset-0
                 each error in errors
                     .error
                         div #{error}
