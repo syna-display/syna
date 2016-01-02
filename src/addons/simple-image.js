@@ -13,7 +13,7 @@ module.exports = function(request, handle, ignore) {
         handle({
             view: 'simple-image',
             url: request.url.href,
-            ico: ico.none()
+            ico: ico.domain(request.url.hostname)
         });
         return;
     }
