@@ -1,4 +1,4 @@
-.tile-syna-info
+.tile-syna-info.expand
     img.logo(src='assets/img/logo.png')
     .centered
         center
@@ -12,5 +12,5 @@
                 ul.list-group
                     each ip in ips
                         li.list-group-item= ip
-                p.code-p #{__("Connection code")} 
+                p.code-p #{__("Connection code")}
                     span.code(type='button') #{code}
