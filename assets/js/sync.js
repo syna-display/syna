@@ -54,6 +54,24 @@
             });
         };
 
+        // Send command's result
+        var sendSynaInfo = function () {
+            $.ajax({
+                type: "POST",
+                url: '/api/v1/sendText',
+                data: {
+                    "input": "!info",
+                    "display": true
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader ('Authorization', 'Basic ' + btoa(user.username + ':' + user.code));
+                },
+                success: function (res, html, result) {
+                  // We don't care of the result
+                }
+            });
+        };
+
         // Sync clients
         socket.on("items:new", function (data) {
             addItem(data.data);
@@ -68,6 +86,12 @@
         // Send command's result
         $("#submitcommand").click(function (e) {
             sendText();
+            e.preventDefault();
+        });
+
+        // On "terminate" button : redisplay home
+        $("#endsession").click(function (e) {
+            sendSynaInfo();
             e.preventDefault();
         });
     });
