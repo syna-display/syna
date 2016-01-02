@@ -27,6 +27,14 @@
               "path": "/api/oembed/2",
               "hooks": { "ondisplay": "autoplaySlideshare" }
           }
+      },
+      "deviantart" : {
+          "contains": [ "deviantart" ],
+          "data": {
+              "hostname": "http://backend.deviantart.com",
+              "path": "/oembed",
+              "domain": "deviantart.com"
+          }
       }
   },
   "debug": true

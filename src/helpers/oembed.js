@@ -14,7 +14,13 @@ if(!list) {
 // Internal methods --
 
 var addProviderInfo = function(provider, object) {
-    object.ico = ico.domain(provider.hostname)
+    if(provider.domain) {
+      object.ico = ico.domain(provider.domain)
+    }
+    else {
+      object.ico = ico.domain(provider.hostname)
+    }
+    
     object.hooks = provider.hooks ? provider.hooks : [];
     return object;
 }
