@@ -27,3 +27,10 @@
     background-image: url("/img/mascotte.png");
     background-size: 50px 50px;
 }
+
+#actionbar {
+    text-align: right;
+}
+    #logout {
+      margin-left: 20px;
+    }

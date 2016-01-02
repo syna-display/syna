@@ -10,14 +10,13 @@ block imports
 block content
     .container.content
         .row
-            .col-lg-1.col-md-1.col-sm-2.col-xs-2
+            #actionbar.col-lg-12.col-md-12.col-sm-12.col-xs-12
                 a#endsession.btn.btn-danger(href='') Terminer la session
+                a#logout.btn.btn-info(href='/logout')
+                    span.glyphicon.glyphicon-log-out
         .row
             .col-lg-11.col-md-11.col-sm-10.col-xs-10
                 h1 Liste d'affichage
-            .col-lg-1.col-md-1.col-sm-2.col-xs-2
-                a#logout.btn.btn-info(href='/logout')
-                    span.glyphicon.glyphicon-log-out
         .row
             .col-lg-12.col-md-12.col-sm-12.col-xs-12
                 .block-commands
