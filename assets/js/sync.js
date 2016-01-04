@@ -92,7 +92,15 @@
         // On "terminate" button : redisplay home
         $("#endsession").click(function (e) {
             sendSynaInfo();
+            socket.emit("session:end", function () {
+                window.location.href = "/logout";
+            });
             e.preventDefault();
+        });
+
+        // Sync clients
+        socket.on("session:end", function () {
+            window.location.href = "/logout";
         });
     });
 })(jQuery);

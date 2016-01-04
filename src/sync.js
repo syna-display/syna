@@ -14,6 +14,9 @@ exports.init = function(socket) {
                 socket.broadcast.emit("items:new", data);
                 callback(data);
             }
+        }).on("session:end", function(callback) {
+            socket.broadcast.emit("session:end");
+            callback();
         });
     });
 
